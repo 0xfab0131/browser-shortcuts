@@ -93,7 +93,7 @@ remove: ## Remove a script file (interactive)
 	@echo "---------------------"
 
 ## ---------------------------------------
-## Build Command
+## Build & Publish Commands
 ## ---------------------------------------
 
 build: ## Build the script for production
@@ -102,7 +102,6 @@ build: ## Build the script for production
 	$(COMPOSE) build $(SERVICE_NAME)
 	@echo "Running build command via docker compose run (as container default user)..."
 	@# Run the build command within the 'dev' service context
-	@# Explicitly mount the dist directory to get build artifacts on the host
 	$(COMPOSE) run --rm \
 	  -w /app \
 	  -v "$(shell pwd)/dist:/app/dist" \
@@ -111,6 +110,21 @@ build: ## Build the script for production
 	@echo "\n✅ Build complete. Output files should be in the ./dist directory."
 	@echo "   If file permissions are incorrect in ./dist, run: sudo chown $(shell id -u):$(shell id -g) -R dist"
 	@echo "   Install the .user.js file in Tampermonkey."
+
+publish: build ## Build, commit, and push the script to Git remote (origin main)
+	@echo "\n🚢 Publishing build results..."
+	@# Check for uncommitted changes before proceeding (optional but recommended)
+	@if ! git diff --quiet HEAD --; then \
+		echo "⚠️ Warning: You have uncommitted changes. Staging all changes including build output."; \
+	fi
+	git add .
+	@# Create commit message with timestamp
+	@commit_msg="Publish build at $(shell date +'%Y-%m-%d %H:%M:%S %Z')"; \
+	echo "📝 Committing changes with message: '$$commit_msg'"; \
+	git commit -m "$$commit_msg" || echo "No changes to commit."; \
+	@echo "🚀 Pushing to origin main..."; \
+	git push origin main # Assumes remote 'origin' and branch 'main'
+	@echo "\n✅ Publish attempt complete."
 
 ## ---------------------------------------
 ## Utility Commands
