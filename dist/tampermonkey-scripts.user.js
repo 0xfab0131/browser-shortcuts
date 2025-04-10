@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Browser Shortcuts (All-in-One)
 // @namespace    https://github.com/0xfab0131
-// @version      2025.0410.165820
+// @version      2025.0410.171159
 // @author       0xfab0131
 // @description  Tampermonkey scripts collection developed with Vite and TypeScript
 // @license      UNLICENSED
@@ -14,6 +14,7 @@
 // @updateURL    https://raw.githubusercontent.com/0xfab0131/browser-shortcuts/main/dist/tampermonkey-scripts.meta.js
 // @match        *://*/*
 // @grant        GM_notification
+// @grant        GM_openInTab
 // @grant        GM_setClipboard
 // ==/UserScript==
 
@@ -25,7 +26,10 @@
     /** Copies basic page info (Title + URL) */
     COPY_PAGE_INFO_BASIC: "Ctrl+Alt+U",
     /** Copies detailed page info (Markdown) */
-    COPY_PAGE_INFO_MARKDOWN: "Ctrl+Alt+I"
+    COPY_PAGE_INFO_MARKDOWN: "Ctrl+Alt+I",
+    // --- librechat-new ---
+    /** Opens LibreChat with a new prompt */
+    OPEN_LIBRECHAT_NEW_PROMPT: "Ctrl+Alt+L"
     // --- Add other script bindings here ---
     // EXAMPLE_FEATURE_TOGGLE: 'Alt+Shift+T',
     // ANOTHER_ACTION: null, // Disabled by default
@@ -188,6 +192,70 @@ ${markdown.trim()}`);
     window[listenerKey] = handleKeyDown;
     console.log(
       `${SCRIPT_NAME}: Initialized. Basic: ${BINDINGS.COPY_PAGE_INFO_BASIC}, Markdown: ${BINDINGS.COPY_PAGE_INFO_MARKDOWN}`
+    );
+  })();
+  (function() {
+    const SCRIPT_NAME = "LibreChat New Prompt";
+    const LOADED_FLAG = `__${SCRIPT_NAME.replace(
+    /\s+/g,
+    "_"
+  ).toUpperCase()}_LOADED__`;
+    const LIBRECHAT_BASE_URL = "https://chat.example.com/";
+    if (window[LOADED_FLAG]) {
+      console.log(`${SCRIPT_NAME}: Already loaded. Skipping initialization.`);
+      return;
+    }
+    window[LOADED_FLAG] = true;
+    console.log(`${SCRIPT_NAME}: Initializing...`);
+    const openNewLibreChatPrompt = () => {
+      console.log(`${SCRIPT_NAME}: Shortcut triggered.`);
+      const promptText = prompt("Enter the prompt for LibreChat:", "");
+      if (promptText === null) {
+        console.log(`${SCRIPT_NAME}: Prompt cancelled by user.`);
+        return;
+      }
+      if (promptText.trim() === "") {
+        console.log(
+          `${SCRIPT_NAME}: Prompt is empty, opening LibreChat without prompt.`
+        );
+        GM_openInTab(LIBRECHAT_BASE_URL, { active: true });
+      } else {
+        const encodedPrompt = encodeURIComponent(promptText);
+        const targetUrl = `${LIBRECHAT_BASE_URL}?prompt=${encodedPrompt}`;
+        console.log(`${SCRIPT_NAME}: Opening URL: ${targetUrl}`);
+        GM_openInTab(targetUrl, { active: true });
+      }
+    };
+    const handleKeyDown = (event) => {
+      const checkModifiers = (binding) => {
+        const parts = binding.toUpperCase().split("+");
+        const key = parts.pop();
+        if (!key || key !== event.key.toUpperCase()) return false;
+        const ctrl = parts.includes("CTRL");
+        const alt = parts.includes("ALT");
+        const shift = parts.includes("SHIFT");
+        const meta = parts.includes("META");
+        return event.ctrlKey === ctrl && event.altKey === alt && event.shiftKey === shift && event.metaKey === meta;
+      };
+      if (checkModifiers(BINDINGS.OPEN_LIBRECHAT_NEW_PROMPT)) {
+        console.log(
+          `${SCRIPT_NAME}: Shortcut detected! (${BINDINGS.OPEN_LIBRECHAT_NEW_PROMPT})`
+        );
+        event.preventDefault();
+        event.stopPropagation();
+        openNewLibreChatPrompt();
+      }
+    };
+    const listenerKey = `__${SCRIPT_NAME}_KEYDOWN_LISTENER__`;
+    const existingListener = window[listenerKey];
+    if (existingListener) {
+      document.removeEventListener("keydown", existingListener, true);
+      console.log(`${SCRIPT_NAME}: Removed previous keydown listener.`);
+    }
+    document.addEventListener("keydown", handleKeyDown, true);
+    window[listenerKey] = handleKeyDown;
+    console.log(
+      `${SCRIPT_NAME}: Initialized. Shortcut: ${BINDINGS.OPEN_LIBRECHAT_NEW_PROMPT}`
     );
   })();
   console.log("Browser Shortcuts (All-in-One) Loaded.");

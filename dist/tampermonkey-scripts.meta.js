@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Browser Shortcuts (All-in-One)
 // @namespace    https://github.com/0xfab0131
-// @version      2025.0410.165820
+// @version      2025.0410.171159
 // @author       0xfab0131
 // @description  Tampermonkey scripts collection developed with Vite and TypeScript
 // @license      UNLICENSED
@@ -14,5 +14,6 @@
 // @updateURL    https://raw.githubusercontent.com/0xfab0131/browser-shortcuts/main/dist/tampermonkey-scripts.meta.js
 // @match        *://*/*
 // @grant        GM_notification
+// @grant        GM_openInTab
 // @grant        GM_setClipboard
 // ==/UserScript==

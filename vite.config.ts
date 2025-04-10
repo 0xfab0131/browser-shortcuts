@@ -68,6 +68,7 @@ export default defineConfig({
         grant: [
           "GM_setClipboard",
           "GM_notification",
+          "GM_openInTab",
           // 'GM_addStyle', // Add back if any script needs it
           // Add other grants as needed by future scripts
         ],

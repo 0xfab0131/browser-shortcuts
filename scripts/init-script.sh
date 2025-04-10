@@ -55,8 +55,8 @@ echo ""
 echo "🔧 Creating directory $SCRIPT_SRC_DIR if it doesn't exist..."
 mkdir -p "$SCRIPT_SRC_DIR"
 
-echo "🔧 Copying src/main.ts to '$final_script_entry_path'..."
-cp src/main.ts "$final_script_entry_path"
+echo "🔧 Copying src/template.user.ts to '$final_script_entry_path'..."
+cp src/template.user.ts "$final_script_entry_path"
 if [ $? -ne 0 ]; then
 	echo "" >&2
 	echo "❌ Error: Failed to copy template file." >&2

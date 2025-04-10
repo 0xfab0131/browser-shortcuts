@@ -122,9 +122,9 @@ publish: build ## Build, commit, and push the script to Git remote (origin main)
 	@commit_msg="Publish build at $(shell date +'%Y-%m-%d %H:%M:%S %Z')"; \
 	echo "📝 Committing changes with message: '$$commit_msg'"; \
 	git commit -m "$$commit_msg" || echo "No changes to commit."; \
-	@echo "🚀 Pushing to origin main..."; \
+	echo "🚀 Pushing to origin main..."; \
 	git push origin main # Assumes remote 'origin' and branch 'main'
-	@echo "\n✅ Publish attempt complete."
+	echo "\n✅ Publish attempt complete."
 
 ## ---------------------------------------
 ## Utility Commands

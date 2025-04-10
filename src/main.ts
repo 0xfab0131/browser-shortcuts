@@ -9,6 +9,7 @@
 // ==/UserScript==
 
 import "./copy-page-info"; // Load and initialize the copy-page-info script
+import "./librechat-new"; // Load and initialize the librechat-new script
 
 // Import other scripts here as they are created
 // import './another-feature';

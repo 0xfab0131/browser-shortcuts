@@ -44,6 +44,10 @@ This repository serves as a template for developing Tampermonkey Userscripts usi
 - **Simplified Workflow** using Makefile (`make dev`, `make init`, `make build`, `make remove`).
 - **Fast development server and build** powered by Vite.
 - **Type-safe development** with TypeScript.
+- **Centralized Keybinding Management** in `src/keybindings.ts`.
+- **Example Scripts:**
+  - Copy Page Info (`Ctrl+Alt+U` / `Ctrl+Alt+I`)
+  - New LibreChat Prompt (`Ctrl+Alt+L`)
 - **Easy Userscript metadata management** using `vite-plugin-monkey`.
 - **Efficient development workflow** with local hot-reloading (for non-GM parts via Docker volume mounts).
 - **Clear project structure** ready for your script.
@@ -63,7 +67,7 @@ This repository serves as a template for developing Tampermonkey Userscripts usi
 - `make dev`: Start the development server (for UI/logic dev, GM APIs likely broken).
 - `make stop`: Stop the development server container.
 - `make logs`: Tail the logs of the development server container.
-- `make init`: Interactively initialize a new script based on `src/main.ts`.
+- `make init`: Interactively initialize a new script based on `src/template.user.ts`.
 - `make remove`: Interactively remove a script file from the `src` directory.
 - `make build`: Build the production-ready userscript (needed for testing GM APIs).
 - `make clean`: Remove the `dist` directory and optionally node_modules/containers.
@@ -102,6 +106,8 @@ browser-shortcuts/
 ├── src/
 │   ├── main.ts       # Main entry point (imports other scripts)
 │   ├── copy-page-info.ts # Example feature script
+│   ├── librechat-new.ts  # Example LibreChat script
+│   ├── template.user.ts # Template for `make init`
 │   └── keybindings.ts  # Central keybinding configuration
 ├── .dockerignore     # Files excluded from Docker build context
 ├── .gitignore        # Git ignore configuration

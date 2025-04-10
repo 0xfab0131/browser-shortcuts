@@ -44,6 +44,10 @@
 - **Makefile による簡略化されたワークフロー** (`make dev`, `make init`, `make build`, `make remove`)
 - **Vite による高速な開発サーバーとビルド**
 - **TypeScript による型安全な開発**
+- **`src/keybindings.ts` でのキーバインド集中管理**
+- **スクリプト例:**
+  - ページ情報コピー (`Ctrl+Alt+U` / `Ctrl+Alt+I`)
+  - LibreChat 新規プロンプト (`Ctrl+Alt+L`)
 - **`vite-plugin-monkey` による簡単な Userscript メタデータ管理**
 - **ローカルでのホットリロードによる効率的な開発フロー** (GM\_\* API を除く部分、Docker ボリュームマウント経由)
 - **スクリプト開発に適した明確なプロジェクト構造**
@@ -63,7 +67,7 @@
 - `make dev`: 開発サーバーを起動します (UI/ロジック開発用、GM API は動作しない可能性大)。
 - `make stop`: 開発サーバーコンテナを停止します。
 - `make logs`: 開発サーバーコンテナのログを追跡表示します。
-- `make init`: `src/main.ts` を基に対話的に新しいスクリプトを初期化します。
+- `make init`: `src/template.user.ts` を基に対話的に新しいスクリプトを初期化します。
 - `make remove`: `src` ディレクトリからスクリプトファイルを対話的に削除します。
 - `make build`: `dist` ディレクトリに本番用ユーザースクリプトをビルドします (GM API テストに必要)。
 - `make clean`: `dist` ディレクトリを削除し、オプションで node_modules/コンテナも削除します。
@@ -102,6 +106,8 @@ browser-shortcuts/
 ├── src/
 │   ├── main.ts       # メインエントリーポイント (他のスクリプトを import)
 │   ├── copy-page-info.ts # 機能スクリプト例
+│   ├── librechat-new.ts  # LibreChat スクリプト例
+│   ├── template.user.ts # `make init` 用テンプレート
 │   └── keybindings.ts  # キーバインド設定ファイル
 ├── .dockerignore     # Docker ビルドコンテキストから除外するファイル
 ├── .gitignore        # Git 除外設定
