@@ -1,0 +1,33 @@
+{
+  "name": "tampermonkey-scripts",
+  "version": "1.0.0",
+  "description": "Tampermonkey scripts collection developed with Vite and TypeScript",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0xfab0131/browser-shortcuts.git"
+  },
+  "keywords": [
+    "tampermonkey",
+    "userscript",
+    "vite"
+  ],
+  "author": "0xfab0131",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/0xfab0131/browser-shortcuts/issues"
+  },
+  "homepage": "https://github.com/0xfab0131/browser-shortcuts#readme",
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@types/tampermonkey": "^5.0.4",
+    "typescript": "^5.8.3",
+    "vite": "^6.2.6",
+    "vite-plugin-monkey": "^5.0.8"
+  }
+}

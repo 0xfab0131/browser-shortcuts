@@ -1,0 +1,20 @@
+services:
+  dev:
+    build:
+      context: .
+      target: development # Use the development stage from Dockerfile
+    container_name: tampermonkey_dev
+    ports:
+      - "5173:5173" # Map the Vite port to the host
+    volumes:
+      # Mount the source code directory for live editing
+      - ./src:/app/src:cached
+      # Mount vite config for live editing
+      - ./vite.config.ts:/app/vite.config.ts:cached
+      # Mount tsconfig for live editing (optional, restart might be needed for some changes)
+      - ./tsconfig.json:/app/tsconfig.json:cached
+      # Keep node_modules in the container to avoid host OS conflicts
+      - /app/node_modules
+    # Keep the container running
+    tty: true
+    stdin_open: true
