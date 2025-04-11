@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Browser Shortcuts (All-in-One)
 // @namespace    https://github.com/0xfab0131
-// @version      2025.0410.171159
+// @version      2025.0411.134101
 // @author       0xfab0131
 // @description  Tampermonkey scripts collection developed with Vite and TypeScript
 // @license      UNLICENSED
@@ -200,7 +200,7 @@ ${markdown.trim()}`);
     /\s+/g,
     "_"
   ).toUpperCase()}_LOADED__`;
-    const LIBRECHAT_BASE_URL = "https://chat.example.com/";
+    const LIBRECHAT_BASE_URL = "https://librechat-fab0131.up.railway.app/c/new";
     if (window[LOADED_FLAG]) {
       console.log(`${SCRIPT_NAME}: Already loaded. Skipping initialization.`);
       return;

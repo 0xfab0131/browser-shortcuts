@@ -21,7 +21,7 @@ import { BINDINGS } from "./keybindings";
     "_"
   ).toUpperCase()}_LOADED__`;
   // ❗ Configure your LibreChat base URL here!
-  const LIBRECHAT_BASE_URL = "https://chat.example.com/"; // Example: Replace with your actual URL
+  const LIBRECHAT_BASE_URL = "https://librechat-fab0131.up.railway.app/c/new"; // Example: Replace with your actual URL
 
   if ((window as any)[LOADED_FLAG]) {
     console.log(`${SCRIPT_NAME}: Already loaded. Skipping initialization.`);
